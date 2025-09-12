@@ -34,7 +34,7 @@ function setCanvasSize(initial) {
     if (initial) {
         side = 500;
     } else {
-        side = Math.min(500,Math.min(window.innerWidth, window.innerHeight));
+        side = Math.min(window.innerWidth, window.innerHeight);
     }
 
     canvas.style.width = side + 'px';
@@ -68,4 +68,5 @@ function render() {
     gl.scissor(0, 0, hw, hh);
     gl.clearColor(0, 1, 0, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
+
 }
