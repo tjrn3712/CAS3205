@@ -51,7 +51,7 @@ function render() {
 
     // 좌상
     gl.scissor(0, hh, hw, hh);
-    gl.clearColor(0, 0, 1, 1);
+    gl.clearColor(0, 1, 0, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     // 우상
@@ -66,7 +66,8 @@ function render() {
 
     // 좌하
     gl.scissor(0, 0, hw, hh);
-    gl.clearColor(0, 1, 0, 1);
+    gl.clearColor(0, 0, 1, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
 }
+
