@@ -197,7 +197,7 @@ cvs.addEventListener('mouseup', ()=>{
   }
 });
 
-// ---- Loop ----
+
 function render(){
   gl.viewport(0,0,gl.drawingBufferWidth, gl.drawingBufferHeight);
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -216,3 +216,4 @@ function render(){
   requestAnimationFrame(render);
 }
 render();
+
