@@ -3,6 +3,35 @@ const info = document.getElementById('info');
 const gl = cvs.getContext('webgl2');
 if (!gl) throw new Error('WebGL2 only, bro.');
 
+const THICK_AXES = false;
+
+function thickLineVerts(p0, p1, w) {
+  const dx = p1[0]-p0[0], dy = p1[1]-p0[1];
+  const len = Math.hypot(dx, dy) || 1.0;
+  const nx = -dy/len, ny = dx/len;
+  const hx = nx * (w*0.5), hy = ny * (w*0.5);
+  return [
+    p0[0]+hx, p0[1]+hy,
+    p0[0]-hx, p0[1]-hy,
+    p1[0]+hx, p1[1]+hy,
+    p1[0]-hx, p1[1]-hy,
+  ];
+}
+
+function drawAxes() {
+  const hColor = [0.65, 0.35, 0.20, 1.0];
+  const vColor = [0.00, 0.80, 0.60, 1.0];
+
+  if (THICK_AXES) {
+    const h = thickLineVerts([-1, 0], [1, 0], AXIS_W);
+    const v = thickLineVerts([ 0,-1], [0, 1], AXIS_W);
+    draw(h, gl.TRIANGLE_STRIP, hColor);
+    draw(v, gl.TRIANGLE_STRIP, vColor);
+  } else {
+    draw([-1,0, 1,0], gl.LINES, hColor);
+    draw([ 0,-1, 0,1], gl.LINES, vColor);
+  }
+}
 
 function buildVert({ pointSize = 10.0 } = {}) {
   const lines = [];
@@ -30,7 +59,7 @@ function buildFrag() {
 const VERT_SRC = buildVert({ pointSize: 10.0 });
 const FRAG_SRC = buildFrag();
 
-// ---- GL Program ----
+
 function compile(type, src){
   const sh = gl.createShader(type);
   gl.shaderSource(sh, src);
@@ -49,7 +78,7 @@ if(!gl.getProgramParameter(prog, gl.LINK_STATUS))
   throw new Error(gl.getProgramInfoLog(prog));
 gl.useProgram(prog);
 
-// ---- Buffers / uniforms ----
+
 const buf = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, buf);
 gl.enableVertexAttribArray(0);
@@ -57,13 +86,13 @@ gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
 const uColor = gl.getUniformLocation(prog, 'uColor');
 gl.clearColor(0.05, 0.05, 0.07, 1);
 
-// ---- State ----
+
 let mode = 'await_circle';
 let circle = { center:null, radius:0, final:false };
 let seg    = { a:null, b:null, final:false };
 let intersections = [];
 
-// ---- Utils ----
+
 function toNDC(ev){
   const r = cvs.getBoundingClientRect();
   const x = ((ev.clientX - r.left)/r.width)*2 - 1;
@@ -109,7 +138,7 @@ function intersectCircleSegment(C, r, P0, P1, eps = 1e-6) {
   }
   if (t2 >= -eps && t2 <= 1 + eps) {
     t2 = Math.min(1, Math.max(0, t2));
-    if (!(out.length && Math.abs(t2 - t1) <= 1e-12)) {
+    if (!(out.length && Math.abs(t2 - t1) <= 1e-6)) {
       out.push([P0[0] + t2*dx, P0[1] + t2*dy]);
     }
   }
@@ -172,6 +201,8 @@ cvs.addEventListener('mouseup', ()=>{
 function render(){
   gl.viewport(0,0,gl.drawingBufferWidth, gl.drawingBufferHeight);
   gl.clear(gl.COLOR_BUFFER_BIT);
+
+  drawAxes();
   if(circle.center && circle.radius>0){
     draw(buildCircleVerts(circle.center, circle.radius), gl.LINE_LOOP, [0.2,0.8,1.0,1.0]);
   }
