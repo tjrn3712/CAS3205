@@ -8,9 +8,9 @@
 - The camera is always looking at the origin.
 ---------------------------------------------------------------------------*/
 
-import { resizeAspectRatio, Axes } from '../util/util.js';
-import { Shader, readShaderFile } from '../util/shader.js';
-import { Cube } from '../util/cube.js';
+import { resizeAspectRatio, Axes } from './util/util.js';
+import { Shader, readShaderFile } from './util/shader.js';
+import { Cube } from './util/cube.js';
 
 const canvas = document.getElementById('glCanvas');
 const gl = canvas.getContext('webgl2');
@@ -136,4 +136,5 @@ async function main() {
         alert('Failed to initialize program');
         return false;
     }
+
 }
