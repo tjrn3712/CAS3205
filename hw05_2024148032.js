@@ -5,7 +5,7 @@
 - The cube is rotating about the x-axis with given constant speed
 - A camera is rotating around the origin through the circle of radius 5
 - The height (y position) of the camera is +2. 
-- The camera is always looking at the origin.
+- The camera is always looking at the origin..
 ---------------------------------------------------------------------------*/
 
 import { resizeAspectRatio, Axes } from './util/util.js';
@@ -138,3 +138,4 @@ async function main() {
     }
 
 }
+
