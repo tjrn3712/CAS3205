@@ -10,7 +10,7 @@
 
 import { resizeAspectRatio, Axes } from './util/util.js';
 import { Shader, readShaderFile } from './util/shader.js';
-import { Cube } from './util/cube.js';
+import { Pyramid } from './util/cube.js';
 
 const canvas = document.getElementById('glCanvas');
 const gl = canvas.getContext('webgl2');
@@ -26,7 +26,7 @@ let modelMatrix = mat4.create();
 const cameraCircleRadius = 5.0;
 const cameraCircleHeight = 2.0;
 const cameraCircleSpeed = 90.0; 
-const cube = new Cube(gl);
+const cube = new Pyramid(gl);
 const axes = new Axes(gl, 1.8);
 
 cube.vertices
