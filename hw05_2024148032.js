@@ -5,7 +5,7 @@
 - The cube is rotating about the x-axis with given constant speed
 - A camera is rotating around the origin through the circle of radius 5
 - The height (y position) of the camera is +2. 
-- The camera is always looking at the origin..
+- The camera is always looking at the origin.
 ---------------------------------------------------------------------------*/
 
 import { resizeAspectRatio, Axes } from './util/util.js';
@@ -28,6 +28,8 @@ const cameraCircleHeight = 2.0;
 const cameraCircleSpeed = 90.0; 
 const cube = new Cube(gl);
 const axes = new Axes(gl, 1.8);
+
+cube.vertices
 
 document.addEventListener('DOMContentLoaded', () => {
     if (isInitialized) {
@@ -83,9 +85,6 @@ function render() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.DEPTH_TEST);
 
-    // Model transformation matrix
-    mat4.rotateX(modelMatrix, modelMatrix, glMatrix.toRadian(deltaTime * 50));
-
     // Viewing transformation matrix
     let camX = cameraCircleRadius * Math.sin(glMatrix.toRadian(cameraCircleSpeed * elapsedTime));
     let camZ = cameraCircleRadius * Math.cos(glMatrix.toRadian(cameraCircleSpeed * elapsedTime));
@@ -136,6 +135,4 @@ async function main() {
         alert('Failed to initialize program');
         return false;
     }
-
 }
-
