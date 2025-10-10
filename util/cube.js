@@ -61,7 +61,7 @@ class Cube
 
 7) Vertex shader: the location (0: position attrib (vec3), 1: normal attrib (vec3),
                             2: color attrib (vec4), and 3: texture coordinate attrib (vec2))
-8) Fragment shader: should catch the vertex color from the vertex shader
+8) Fragment shader: should catch the vertex color from the vertex shader.
 -----------------------------------------------------------------------------*/
 
 export class Pyramid {
